@@ -82,6 +82,7 @@ module "aws_vpc" {
   public_route_cidr                = var.public_route_cidr
   aws_availability_zones_available = data.aws_availability_zones.available.names
 }
+```
 
 **NOTE : `terraform.tfvars` file should be created and the above used variables should be initialized it the file.**
 
@@ -102,6 +103,8 @@ make plan
 # Create resources.
 
 make apply
+
+```
 
 ```
 
