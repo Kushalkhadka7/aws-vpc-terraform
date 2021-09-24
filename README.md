@@ -50,7 +50,7 @@ Terraform module which creates Virtual Private Cloud (VPC).
 | public_subnet  | Public subnet credentials                       |
 | elastic_ip     | Elastic ip associates with the vpc nat gateway. |
 
-## Usage
+## Local Usage
 
 ```hcl
 module "aws_vpc" {
@@ -67,6 +67,22 @@ module "aws_vpc" {
 }
 ```
 
+## Use as module
+
+```hcl
+module "aws_vpc" {
+  source                           = "github.com/Kushalkhadka7/aws-vpc-terraform"
+  vpc_cidr                         = var.vpc_cidr
+  vpc_name                         = var.vpc_name
+  public_subnet_cidr               = var.public_subnet_cidr
+  public_subnet_name               = var.public_subnet_name
+  private_subnet_cidr              = var.private_subnet_cidr
+  private_subnet_name              = var.private_subnet_name
+  private_route_cidr               = var.private_route_cidr
+  public_route_cidr                = var.public_route_cidr
+  aws_availability_zones_available = data.aws_availability_zones.available.names
+}
+
 **NOTE : `terraform.tfvars` file should be created and the above used variables should be initialized it the file.**
 
 ## Running locally.
@@ -74,6 +90,7 @@ module "aws_vpc" {
 **Clone the repository.**
 
 ```
+
 # Initialize terraform.
 
 make init
@@ -85,5 +102,7 @@ make plan
 # Create resources.
 
 make apply
+
+```
 
 ```
