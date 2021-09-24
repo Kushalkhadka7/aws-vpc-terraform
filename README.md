@@ -105,7 +105,3 @@ make plan
 make apply
 
 ```
-
-```
-
-```
