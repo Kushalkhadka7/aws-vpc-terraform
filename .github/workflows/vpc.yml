@@ -23,6 +23,10 @@ jobs:
         id: init
         run: terraform init
 
+      - name: Terraform set workspace
+        id: workspace
+        run: terraform workspace new test
+
       - name: Terraform Format
         id: fmt
         run: terraform fmt -check
