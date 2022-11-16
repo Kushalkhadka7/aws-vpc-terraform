@@ -1,16 +1,16 @@
 # Private route table rules.
 
 locals {
-  availability_zones = data.aws_availability_zones.available
+  availability_zones = var.aws_availability_zones_available
 }
 resource "aws_route_table" "private_rt" {
-  count = length(local.availability_zones)
+  count  = length(local.availability_zones)
   vpc_id = aws_vpc.default.id
 
   route {
     cidr_block = var.private_route_cidr
 
-    gateway_id = aws_nat_gateway.nat_gw.id
+    gateway_id = element(aws_nat_gateway.nat_gw.*.id, count.index)
   }
 
   tags = {
@@ -20,8 +20,8 @@ resource "aws_route_table" "private_rt" {
 
 # Public route table rules.
 resource "aws_route_table" "public_rt" {
-  count = length(local.availability_zones)
-  vpc_id = aws_vpc.default_vpc.id
+  count  = length(local.availability_zones)
+  vpc_id = aws_vpc.default.id
 
   route {
     cidr_block = "0.0.0.0/0"

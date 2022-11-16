@@ -1,6 +1,6 @@
 
 output "default_vpc" {
-  value       = aws_vpc.default_vpc
+  value       = aws_vpc.default
   description = "Vpc output credentials"
 }
 

@@ -1,10 +1,8 @@
-locals {
-  availability_zones = data.aws_availability_zones.available
-}
+
 resource "aws_nat_gateway" "nat_gw" {
-  count = length(local.availability_zones)
-  allocation_id = element(aws_eip.elastic_ip.*.id,count.index)
-  subnet_id     = element(aws_subnet.public_subnet.*.id,count.index)
+  count         = length(local.availability_zones)
+  allocation_id = element(aws_eip.elastic_ip.*.id, count.index)
+  subnet_id     = element(aws_subnet.public_subnet.*.id, count.index)
 
   tags = {
     Name = "Nat gateway"
