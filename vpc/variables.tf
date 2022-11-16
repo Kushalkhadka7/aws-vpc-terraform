@@ -8,6 +8,20 @@ variable "vpc_name" {
   type    = string
 }
 
+
+
+
+variable "enable_dns_hostnames" {
+  default = true
+  type    = bool
+}
+
+variable "enable_dns_support" {
+  default = true
+  type    = bool
+}
+
+
 variable "private_subnet_cidr" {
   default = "192.168.1.0/24"
   type    = string
