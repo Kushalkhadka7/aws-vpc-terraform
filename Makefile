@@ -2,7 +2,7 @@ init:
 	terraform init
 
 format:
-    terraform fmt 
+  terraform fmt
 
 plan:
 	terraform plan
