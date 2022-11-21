@@ -6,5 +6,3 @@ resource "aws_internet_gateway" "ig" {
     Name = "Vpc Internet gateway"
   }
 }
-
-
