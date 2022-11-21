@@ -1,9 +1,6 @@
-aws_region          = "us-east-1"
-vpc_cidr            = "192.168.0.0/16"
-vpc_name            = "test_vpc"
+vpc_name   = "test_vpc"
+aws_region = "us-west-2"
+vpc_cidr   = "192.168.0.0/16"
+
 private_subnet_cidr = "192.168.1.0/24"
 public_subnet_cidr  = "192.168.2.0/24"
-private_subnet_name = "Private Subnet"
-public_subnet_name  = "Public Subnet"
-private_route_cidr  = "192.168.0.0/16"
-public_route_cidr   = "0.0.0.0/0"
