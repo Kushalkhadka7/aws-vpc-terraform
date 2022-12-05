@@ -1,8 +1,3 @@
-locals {
-  no_of_nat_gw = no_of_public_subnet
-}
-
-
 # Enable elastic_ip to be assigned and use inside the vpc.
 # These elastic ip will used by NAT Gateway.
 resource "aws_eip" "this" {

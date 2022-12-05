@@ -21,7 +21,7 @@ variable "internet_gw_id" {
 
 variable "public_subnet_count" {
   type    = number
-  default = 2
+  default = 0
   # [NOTE]: Number should be less than the number of AZ in the aws region.
   description = "No of public subnets to be create."
 }
@@ -39,7 +39,7 @@ variable "private_subnet_cidr" {
 
 variable "private_subnet_count" {
   type    = number
-  default = 2
+  default = 0
   # [NOTE]: Number should be less than the number of AZ in the aws region.
   description = "No of private subnets to be create."
 }

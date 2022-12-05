@@ -6,7 +6,7 @@ output "vpc" {
 }
 
 output "availability_zones" {
-  value       = data.aws_availability_zones.available
+  value       = module.subnets.availability_zones
   description = "Availability zones"
 }
 

@@ -15,5 +15,4 @@ module "subnets" {
   private_subnet_cidr = var.private_subnet_cidr
   vpc_id              = module.vpc.default_vpc.id
   internet_gw_id      = module.vpc.internet_gateway_id
-  availability_zones  = data.aws_availability_zones.available.names
 }
