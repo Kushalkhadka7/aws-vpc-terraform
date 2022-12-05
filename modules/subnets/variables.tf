@@ -1,3 +1,4 @@
+# -----------------------------------------------.
 # Variables reauired while creating public subnet.
 # -----------------------------------------------.
 variable "public_subnet_cidr" {
@@ -7,15 +8,8 @@ variable "public_subnet_cidr" {
 }
 
 variable "vpc_id" {
-  default     = ""
   type        = string
   description = "Current vpc id"
-}
-
-variable "availability_zones" {
-  default     = []
-  type        = list(string)
-  description = "List of availability zones in a region"
 }
 
 
@@ -25,13 +19,38 @@ variable "internet_gw_id" {
   description = "Internet gateway id"
 }
 
+variable "public_subnet_count" {
+  type    = number
+  default = 2
+  # [NOTE]: Number should be less than the number of AZ in the aws region.
+  description = "No of public subnets to be create."
+}
 
+
+# ------------------------------------------------.
 # Variables reauired while creating private subnet.
-# -----------------------------------------------.
+# ------------------------------------------------.
 variable "private_subnet_cidr" {
   default     = ""
   type        = string
   description = "Private subnet cidr range"
+}
+
+
+variable "private_subnet_count" {
+  type    = number
+  default = 2
+  # [NOTE]: Number should be less than the number of AZ in the aws region.
+  description = "No of private subnets to be create."
+}
+
+# --------------------.
+# NAT Gateway varibales.
+# --------------------.
+variable "create_nat_gateway" {
+  type        = bool
+  default     = true
+  description = "Flag to determint to create nat gateway"
 }
 
 

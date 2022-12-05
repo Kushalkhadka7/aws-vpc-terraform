@@ -1,8 +1,13 @@
+locals {
+  no_of_nat_gw = no_of_public_subnet
+}
+
 
 # Enable elastic_ip to be assigned and use inside the vpc.
-resource "aws_eip" "elastic_ip" {
+# These elastic ip will used by NAT Gateway.
+resource "aws_eip" "this" {
   vpc   = true
-  count = length(var.availability_zones)
+  count = var.create_nat_gateway ? local.no_of_nat_gw : 0
 
   lifecycle {
     create_before_destroy = true
@@ -13,9 +18,10 @@ resource "aws_eip" "elastic_ip" {
 # Creates aws nat gateway in each public subnet.
 # eg. If there are 3 public subnets then it will create nat gateway in 
 # each subnets. 
-resource "aws_nat_gateway" "nat_gw" {
-  count         = length(var.availability_zones)
-  allocation_id = element(aws_eip.elastic_ip.*.id, count.index)
+resource "aws_nat_gateway" "this" {
+  count = var.create_nat_gateway ? local.no_of_nat_gw : 0
+
+  allocation_id = element(aws_eip.this.*.id, count.index)
   subnet_id     = element(aws_subnet.public_subnet.*.id, count.index)
 
   tags = {
