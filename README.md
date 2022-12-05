@@ -105,3 +105,10 @@ make plan
 make apply
 
 ```
+
+## TODO
+
+```
+- Update make file
+- Add docker support.(Every operation will happen inside the docker container.)
+```
