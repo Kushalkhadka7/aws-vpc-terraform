@@ -111,4 +111,5 @@ make apply
 ```
 - Update make file
 - Add docker support.(Every operation will happen inside the docker container.)
+- Should add tags so that it can be used with k8s.
 ```
