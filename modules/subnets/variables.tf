@@ -1,3 +1,8 @@
+clearvariable "vpc_cidr_block" {
+  type        = string
+  description = "Current VPC CIDR ranage"
+}
+
 # -----------------------------------------------.
 # Variables reauired while creating public subnet.
 # -----------------------------------------------.
@@ -53,4 +58,8 @@ variable "create_nat_gateway" {
   description = "Flag to determint to create nat gateway"
 }
 
-
+variable "cluster_name" {
+  type        = string
+  defualt     = "test"
+  description = "Name of the eks cluster if we want to create any"
+}

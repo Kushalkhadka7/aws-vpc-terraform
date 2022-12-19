@@ -14,12 +14,20 @@ resource "aws_subnet" "private_subnet" {
   vpc_id                  = var.vpc_id
   count                   = local.no_of_private_subnet
   availability_zone       = data.aws_availability_zones.available.names[count.index]
-  cidr_block              = length(var.private_subnet_cidr) != "" ? var.private_subnet_cidr : format("192.168.%d.0/24", count.index + 50)
+
+  cidr_block = cidrsubnet(
+    signum(length(var.private_subnet_cidr)) == 1 ? var.private_subnet_cidr : var.vpc_cidr_block,
+    ceil(log(local.no_of_private_subnet * 2, 2)),
+    count.index
+  )
+
 
   tags = {
-    type = "Private"
-    Vpv  = var.vpc_id
-    Name = format("Private_subnet_%s", data.aws_availability_zones.available.names[count.index]),
+    type                                        = "Private"
+    Vpv                                         = var.vpc_id
+    Name                                        = format("Private_subnet_%s", data.aws_availability_zones.available.names[count.index]),
+    "kubernetes.io/role/internal-elb"           = "1"
+    "kubernetes.io/cluster/${var.cluster_name}" = "owned"
   }
 }
 
@@ -30,12 +38,19 @@ resource "aws_subnet" "public_subnet" {
   vpc_id                  = var.vpc_id
   count                   = local.no_of_public_subnet
   availability_zone       = data.aws_availability_zones.available.names[count.index]
-  cidr_block              = length(var.public_subnet_cidr) == 1 ? var.public_subnet_cidr : format("192.168.%d.0/24", count.index + 1)
+
+  cidr_block = cidrsubnet(
+    signum(length(var.public_subnet_cidr)) == 1 ? var.public_subnet_cidr : var.vpc_cidr_block,
+    ceil(log(local.no_of_public_subnet * 2, 2)),
+    count.index
+  )
 
   tags = {
-    type = "Public"
-    Vpv  = var.vpc_id
-    Name = format("Public_subnet_%s", data.aws_availability_zones.available.names[count.index]),
+    type                                       = "Public"
+    Vpv                                        = var.vpc_id
+    Name                                       = format("Public_subnet_%s", data.aws_availability_zones.available.names[count.index]),
+    "kubernetes.io/role/elb"                   = "1"
+    "kubernetes.io/cluster/${var.cluser_name}" = "owned"
   }
 }
 

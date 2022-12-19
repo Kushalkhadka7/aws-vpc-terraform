@@ -88,3 +88,9 @@ variable "create_nat_gateway" {
   default     = true
   description = "Flag to determint to create nat gateway"
 }
+
+variable "cluster_name" {
+  type        = string
+  defualt     = "test"
+  description = "Name of the eks cluster if we want to create any"
+}

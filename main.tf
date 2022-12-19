@@ -11,8 +11,10 @@ module "vpc" {
 module "subnets" {
   source = "./modules/subnets"
 
+  cluster_name        = var.cluster_name
   public_subnet_cidr  = var.public_subnet_cidr
   private_subnet_cidr = var.private_subnet_cidr
   vpc_id              = module.vpc.default_vpc.id
   internet_gw_id      = module.vpc.internet_gateway_id
+  vpc_cidr_block      = module.vpc.default_vpc.cidr_block
 }
