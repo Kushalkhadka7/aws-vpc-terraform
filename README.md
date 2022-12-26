@@ -93,23 +93,23 @@ module "aws_vpc" {
 ```
 
 # Initialize terraform.
-
-make init
+make terraform-init
+make docker/terraform-init # using docker
 
 # Show resources to be created.
 
-make plan
+make terraform-plan
+make docker/terraform-plan # using docker
 
 # Create resources.
 
-make apply
+make terraform-apply
+make terraform/terraform-apply # using docker
 
 ```
 
 ## TODO
 
 ```
-- Update make file
-- Add docker support.(Every operation will happen inside the docker container.)
-- Should add tags so that it can be used with k8s.
+- Update readme file
 ```
