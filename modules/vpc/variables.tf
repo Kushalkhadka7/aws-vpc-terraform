@@ -31,3 +31,34 @@ variable "enable_classiclink_dns_support" {
   default     = false
   description = "Flag to enable classisLink support for the VPC"
 }
+
+variable "tags" {
+  type        = map(string)
+  default     = {}
+  description = "Tags that will be attached to the underlying resources created."
+}
+
+variable "additional_tags" {
+  type        = map(string)
+  default     = {}
+  description = "Addiiotnal Tags that will be attached to the underlying resources created."
+}
+
+variable "enable_network_address_usage_metrics" {
+  type        = bool
+  default     = false
+  description = "Whether Network Address Usage metrics are enabled for the VPC"
+}
+
+variable "assign_generated_ipv6_cidr_block" {
+  type        = bool
+  default     = false
+  description = "Requests an Amazon-provided IPv6 CIDR block with a /56 prefix length for the VPC"
+}
+
+variable "instance_tenancy" {
+  type        = string
+  default     = "default"
+  description = "A tenancy option for instances launched into the VPC, available options `default`, `dedicated`"
+  # [NOTE]: This has a dedicated per region fee of $2 per hour, plus an hourly per instance usage fee.
+}

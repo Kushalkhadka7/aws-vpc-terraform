@@ -10,10 +10,10 @@ resource "aws_route_table" "private_rt" {
     gateway_id = element(aws_nat_gateway.this.*.id, count.index)
   }
 
-  tags = {
+  tags = merge({
     Vpc  = var.vpc_id
     Name = "Private route table"
-  }
+  }, var.tags, var.additional_tags)
 }
 
 # Associate route table and subnet (For private subnet).
@@ -36,11 +36,11 @@ resource "aws_route_table" "public_rt" {
     gateway_id = var.internet_gw_id
   }
 
-  tags = {
+  tags = merge({
     Name = "Public route table"
     Vpc  = var.vpc_id
     type = "Public"
-  }
+  }, var.tags, var.additional_tags)
 }
 
 

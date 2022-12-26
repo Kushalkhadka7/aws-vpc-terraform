@@ -4,7 +4,7 @@ locals {
   no_of_public_subnet  = var.public_subnet_count > 0 && var.public_subnet_count < local.availability_zone_count ? var.public_subnet_count : local.availability_zone_count
   no_of_private_subnet = var.private_subnet_count > 0 && var.private_subnet_count < local.availability_zone_count ? var.private_subnet_count : local.availability_zone_count
 
-  no_of_nat_gw = local.no_of_public_subnet
+  nat_gw_count = var.no_of_nat_gateway > 0 ? var.no_of_nat_gateway : local.no_of_public_subnet
 }
 
 # Creates private subnet across the no of availability zones.
@@ -22,13 +22,12 @@ resource "aws_subnet" "private_subnet" {
   )
 
 
-  tags = {
-    type                                        = "Private"
-    Vpv                                         = var.vpc_id
-    Name                                        = format("Private_subnet_%s", data.aws_availability_zones.available.names[count.index]),
-    "kubernetes.io/role/internal-elb"           = "1"
-    "kubernetes.io/cluster/${var.cluster_name}" = "owned"
-  }
+  tags = merge(var.tags, var.additional_tags, {
+    type                              = "Private"
+    Vpv                               = var.vpc_id
+    Name                              = format("Private_subnet_%s", data.aws_availability_zones.available.names[count.index]),
+    "kubernetes.io/role/internal-elb" = "1"
+  })
 }
 
 # Creates public subnet across the no of availability zones.
@@ -45,13 +44,12 @@ resource "aws_subnet" "public_subnet" {
     count.index
   )
 
-  tags = {
-    type                                       = "Public"
-    Vpv                                        = var.vpc_id
-    Name                                       = format("Public_subnet_%s", data.aws_availability_zones.available.names[count.index]),
-    "kubernetes.io/role/elb"                   = "1"
-    "kubernetes.io/cluster/${var.cluser_name}" = "owned"
-  }
+  tags = merge(var.tags, var.additional_tags, {
+    type                     = "Public"
+    Vpv                      = var.vpc_id
+    Name                     = format("Public_subnet_%s", data.aws_availability_zones.available.names[count.index]),
+    "kubernetes.io/role/elb" = "1"
+  })
 }
 
 

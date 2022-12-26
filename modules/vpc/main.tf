@@ -1,16 +1,15 @@
 # Create aws vpc.
 resource "aws_vpc" "this" {
-  cidr_block                     = var.vpc_cidr
-  enable_dns_support             = var.enable_dns_support
-  enable_dns_hostnames           = var.enable_dns_hostnames
-  enable_classiclink             = var.enable_classiclink
-  enable_classiclink_dns_support = var.enable_classiclink_dns_support
+  cidr_block                           = var.vpc_cidr
+  instance_tenancy                     = var.instance_tenancy
+  enable_classiclink                   = var.enable_classiclink
+  enable_dns_support                   = var.enable_dns_support
+  enable_dns_hostnames                 = var.enable_dns_hostnames
+  enable_classiclink_dns_support       = var.enable_classiclink_dns_support
+  assign_generated_ipv6_cidr_block     = var.assign_generated_ipv6_cidr_block
+  enable_network_address_usage_metrics = var.enable_network_address_usage_metrics
 
-  assign_generated_ipv6_cidr_block = true
-
-  tags = {
-    Name = "${var.vpc_name}"
-  }
+  tags = merge(var.tags, var.additional_tags)
 }
 
 # Create a default security group for vpc.
@@ -19,7 +18,5 @@ resource "aws_vpc" "this" {
 resource "aws_default_security_group" "this" {
   vpc_id = aws_vpc.this.id
 
-  tags = {
-    Name = "Default Security Group for VPC"
-  }
+  tags = merge(var.tags, var.additional_tags)
 }

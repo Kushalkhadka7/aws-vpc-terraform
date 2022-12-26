@@ -1,7 +1,6 @@
 # # Rules for network access list in VPC.
 # resource "aws_network_acl" "test_nacl" {
 #   vpc_id = aws_vpc.default_vpc.id
-
 #   egress = [
 #     {
 #       protocol   = "tcp"
@@ -12,7 +11,6 @@
 #       to_port    = 443
 #     }
 #   ]
-
 #   ingress = [
 #     {
 #       protocol   = "tcp"
@@ -39,8 +37,8 @@
 #       to_port    = 22
 #     }
 #   ]
-
 #   tags = {
 #     Name = "main"
 #   }
 # }
+

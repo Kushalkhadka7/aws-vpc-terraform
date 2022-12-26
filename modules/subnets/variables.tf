@@ -1,6 +1,18 @@
-clearvariable "vpc_cidr_block" {
+variable "vpc_cidr_block" {
   type        = string
   description = "Current VPC CIDR ranage"
+}
+
+variable "tags" {
+  type        = map(string)
+  default     = {}
+  description = "Tags that will be attached to the underlying resources created."
+}
+
+variable "additional_tags" {
+  type        = map(string)
+  default     = {}
+  description = "Addiiotnal Tags that will be attached to the underlying resources created."
 }
 
 # -----------------------------------------------.
@@ -58,8 +70,8 @@ variable "create_nat_gateway" {
   description = "Flag to determint to create nat gateway"
 }
 
-variable "cluster_name" {
-  type        = string
-  defualt     = "test"
-  description = "Name of the eks cluster if we want to create any"
+variable "no_of_nat_gateway" {
+  type        = number
+  default     = 0
+  description = "Total no of nat gateways that we want to run in the vpc"
 }
